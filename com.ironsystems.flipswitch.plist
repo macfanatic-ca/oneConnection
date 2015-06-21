@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.Hyperwallet.flipswitch</string>
+	<string>com.ironsystems.flipswitch</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Library/Hyperwallet/bin/flipswitch</string>
+		<string>/Library/ironsystems/bin/flipswitch</string>
 	</array>
 	<key>RunAtLoad</key>
  	<true/>
