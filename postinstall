@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Load newly installed LaunchDaemon
+launchctl load -w /Library/LaunchDaemons/com.Hyperwallet.flipswitch.plist
+echo "LaunchDaemon sucessfully loaded"

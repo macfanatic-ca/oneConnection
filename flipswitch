@@ -1,0 +1,91 @@
+#!/bin/bash
+################################################################################################################################################
+#
+# flipswitch
+# Created by: JonY
+#
+# HISTORY
+# Version: 1.0
+# Stops network bridging turning the relevant network interface off and on
+# Version: 1.1
+# Added logging for debugging and tracking
+# Version: 1.2
+# Added logic to account for Dell Ethernet hardware
+#
+#
+################################################################################################################################################
+
+
+# SETTING THE ENVIRONMENT VARIABLES
+
+# Get the ethernet hardware port (ehwport)
+ehwport=`networksetup -listallhardwareports | awk '/.Ethernet/,/Ethernet Address/' | awk 'NR==2' | cut -d " " -f 2`
+
+# Get the dell hardware port (dehwport)
+dehwport=`networksetup -listallhardwareports | awk '/.Dell/,/Ethernet Address/' | awk 'NR==2' | cut -d " " -f 2`
+
+# Get the wireless network service (wservice)
+wservice=`/usr/sbin/networksetup -listallnetworkservices | grep	 -Ei '(Wi-Fi|AirPort)'`
+
+# Get the wireless hardware port (whwport)
+whwport=`networksetup -listallhardwareports | awk "/$wservice/,/Ethernet Address/" | awk 'NR==2' | cut -d " " -f 2`
+
+# Work SSID
+WorkSSID=HyperWallet-Secure
+
+# Authentication to use eg WPA2 Enterprise
+Auth=WPA2E
+
+# Index for SSID
+Index=0
+
+# Log-file for Debugging
+logfile='/var/log/flipswitch.log'
+
+####################################################################################
+
+# See if ethernet if active and if it is then we need to turn OFF the wirelesss interface!
+ 
+# Check for Hardware Port named *Ethernet
+if ifconfig "${ehwport}" | grep inet; then
+/usr/sbin/networksetup -setairportpower $whwport off
+echo "`date` Ethernet active, Wi-Fi turned off" | tee -a $logfile
+/usr/sbin/networksetup -setdnsservers $wservice "empty"
+echo "`date` DNS flushed" | tee -a $logfile
+
+# Check for Hardware Port named *Dell
+elif ifconfig "${dehwport}" | grep inet; then
+/usr/sbin/networksetup -setairportpower $whwport off
+echo "`date` Dell Ethernet active, Wi-Fi turned off" | tee -a $logfile
+/usr/sbin/networksetup -setdnsservers $wservice "empty"
+echo "`date` DNS flushed" | tee -a $logfile
+
+# if Ethernet is not active then...
+else
+echo "`date` Ethernet inactive" | tee -a $logfile
+# Clear the DNS cache for the wireless network service
+/usr/sbin/networksetup -setdnsservers $wservice "empty"
+echo "`date` DNS flushed" | tee -a $logfile
+# Do not ask to join new networks
+#/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport prefs joinmode=automatic joinmodefallback=donothing
+
+# Set the preferred wireless network to WorkSSID
+/usr/sbin/networksetup -addpreferredwirelessnetworkatindex $whwport $WorkSSID $Index $Auth
+echo "`date` Wi-Fi preferred network set" | tee -a $logfile
+# Turn the wirless hardware port on
+/usr/sbin/networksetup -setairportpower $whwport on
+echo "`date` Wi-Fi turned on" | tee -a $logfile
+fi
+
+# Check to see if the JSS is available and if yes, then submits the current IP
+checkjss=`/usr/sbin/jamf checkJSSConnection -retry 0 | grep "The JSS is available"`
+
+# This is useful when using Casper Remote and users are switching between wired and wireless
+if [ "$checkjss" == "The JSS is available." ]; then
+echo "`date` JSS Available, Submitting new IP Address" | tee -a $logfile
+/usr/sbin/jamf log
+else
+echo "`date` JSS Not Available. Unable to submit new IP Address" | tee -a $logfile
+fi
+echo "`date` ################Flipswitch Compelte################" | tee -a $logfile
+exit 0

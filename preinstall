@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Look for running LaunchDaemon
+ldIsRunning=`launchctl list | grep com.Hyperwallet.flipswitch | awk '{print $3}'`
+
+# If LaunchDaemon is running, unload LaunchDaemon
+if [ "$ldIsRunning" == "com.Hyperwallet.flipswitch" ]; then
+        echo "LaunchDaemon found running"
+        launchctl unload /Library/LaunchDaemons/com.Hyperwallet.flipswitch.plist
+        echo "LaunchDaemon has been unloaded"
+fi
+
+# If LaunchDaemon is installed, remove LaunchDaemon
+ldIsInstalled=`ls /Library/LaunchDaemons/ | grep com.Hyperwallet.flipswitch.plist`
+
+if [ "$ldIsInstalled" == "com.Hyperwallet.flipswitch.plist" ]; then
+        echo "Previous LaunchDaemon was installed"
+        rm -r /Library/LaunchDaemons/com.Hyperwallet.flipswitch.plist
+        echo "Previous LaunchDaemon has been removed"
+fi
+
+# If flipswitch is installed, remove flipswitch
+fsIsInstalled=`ls /Library/Hyperwallet/bin/ | grep flipswitch`
+
+if [ "$fsIsInstalled" == "flipswitch*" ]; then
+        echo "Previous version of flipswitch was installed"
+        rm -r /Library/Hyperwallet/bin/flipswitch*
+        echo "Previous version of flipswitch has been removed"
+fi
