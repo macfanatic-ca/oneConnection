@@ -31,10 +31,10 @@ wservice=`/usr/sbin/networksetup -listallnetworkservices | grep	 -Ei '(Wi-Fi|Air
 whwport=`networksetup -listallhardwareports | awk "/$wservice/,/Ethernet Address/" | awk 'NR==2' | cut -d " " -f 2`
 
 # Work SSID
-WorkSSID=HyperWallet-Secure
+WorkSSID=example
 
 # Authentication to use eg WPA2 Enterprise
-Auth=WPA2E
+Auth=example
 
 # Index for SSID
 Index=0
@@ -70,8 +70,8 @@ echo "`date` DNS flushed" | tee -a $logfile
 #/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport prefs joinmode=automatic joinmodefallback=donothing
 
 # Set the preferred wireless network to WorkSSID
-/usr/sbin/networksetup -addpreferredwirelessnetworkatindex $whwport $WorkSSID $Index $Auth
-echo "`date` Wi-Fi preferred network set" | tee -a $logfile
+#/usr/sbin/networksetup -addpreferredwirelessnetworkatindex $whwport $WorkSSID $Index $Auth
+#echo "`date` Wi-Fi preferred network set" | tee -a $logfile
 # Turn the wirless hardware port on
 /usr/sbin/networksetup -setairportpower $whwport on
 echo "`date` Wi-Fi turned on" | tee -a $logfile

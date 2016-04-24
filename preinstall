@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # Look for running LaunchDaemon
-ldIsRunning=`launchctl list | grep com.ironsystems.flipswitch | awk '{print $3}'`
+ldIsRunning=`launchctl list | grep ca.macfanatic.flipswitch | awk '{print $3}'`
 
 # If LaunchDaemon is running, unload LaunchDaemon
-if [ "$ldIsRunning" == "com.ironsystems.flipswitch" ]; then
+if [ "$ldIsRunning" == "ca.macfanatic.flipswitch" ]; then
         echo "LaunchDaemon found running"
-        launchctl unload /Library/LaunchDaemons/com.ironsystems.flipswitch.plist
+        launchctl unload /Library/LaunchDaemons/ca.macfanatic.flipswitch.plist
         echo "LaunchDaemon has been unloaded"
 fi
 
 # If LaunchDaemon is installed, remove LaunchDaemon
-ldIsInstalled=`ls /Library/LaunchDaemons/ | grep com.ironsystems.flipswitch.plist`
+ldIsInstalled=`ls /Library/LaunchDaemons/ | grep ca.macfanatic.flipswitch.plist`
 
-if [ "$ldIsInstalled" == "com.ironsystems.flipswitch.plist" ]; then
+if [ "$ldIsInstalled" == "ca.macfanatic.flipswitch.plist" ]; then
         echo "Previous LaunchDaemon was installed"
-        rm -r /Library/LaunchDaemons/com.ironsystems.flipswitch.plist
+        rm -r /Library/LaunchDaemons/ca.macfanatic.flipswitch.plist
         echo "Previous LaunchDaemon has been removed"
 fi
 

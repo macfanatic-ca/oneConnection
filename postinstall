@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Load newly installed LaunchDaemon
-launchctl load -w /Library/LaunchDaemons/com.ironsystems.flipswitch.plist
+launchctl load -w /Library/LaunchDaemons/ca.macfanatic.flipswitch.plist
 echo "LaunchDaemon sucessfully loaded"
