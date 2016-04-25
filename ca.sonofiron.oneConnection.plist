@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>ca.macfanatic.flipswitch</string>
+	<string>ca.sonofiron.oneConnection</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Library/Macfanatic/bin/flipswitch</string>
+		<string>/Library/oneConnection/bin/oneConnection</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>

@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################################################################################
 #
-# flipswitch
+# oneConnection
 # Created by: JonY
 #
 # HISTORY
@@ -40,12 +40,12 @@ Auth=example
 Index=0
 
 # Log-file for Debugging
-logfile='/var/log/flipswitch.log'
+logfile='/var/log/oneConnection.log'
 
 ####################################################################################
 
 # See if ethernet if active and if it is then we need to turn OFF the wirelesss interface!
- 
+
 # Check for Hardware Port named *Ethernet
 if ifconfig "${ehwport}" | grep inet; then
 /usr/sbin/networksetup -setairportpower $whwport off
@@ -87,5 +87,5 @@ echo "`date` JSS Available, Submitting new IP Address" | tee -a $logfile
 else
 echo "`date` JSS Not Available. Unable to submit new IP Address" | tee -a $logfile
 fi
-echo "`date` ################Flipswitch Compelte################" | tee -a $logfile
+echo "`date` ################oneConnection Compelte################" | tee -a $logfile
 exit 0

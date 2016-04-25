@@ -1,29 +1,27 @@
 #!/bin/bash
 
 # Look for running LaunchDaemon
-ldIsRunning=`launchctl list | grep ca.macfanatic.flipswitch | awk '{print $3}'`
+ldIsRunning=`launchctl list | grep ca.sonofiron.oneConnection | awk '{print $3}'`
 
 # If LaunchDaemon is running, unload LaunchDaemon
-if [ "$ldIsRunning" == "ca.macfanatic.flipswitch" ]; then
+if [ "$ldIsRunning" == "ca.sonofiron.oneConnection" ]; then
         echo "LaunchDaemon found running"
-        launchctl unload /Library/LaunchDaemons/ca.macfanatic.flipswitch.plist
+        launchctl unload /Library/LaunchDaemons/ca.sonofiron.oneConnection.plist
         echo "LaunchDaemon has been unloaded"
 fi
 
 # If LaunchDaemon is installed, remove LaunchDaemon
-ldIsInstalled=`ls /Library/LaunchDaemons/ | grep ca.macfanatic.flipswitch.plist`
+ldIsInstalled=`ls /Library/LaunchDaemons/ | grep ca.sonofiron.oneConnection.plist`
 
-if [ "$ldIsInstalled" == "ca.macfanatic.flipswitch.plist" ]; then
+if [ "$ldIsInstalled" == "ca.sonofiron.oneConnection.plist" ]; then
         echo "Previous LaunchDaemon was installed"
-        rm -r /Library/LaunchDaemons/ca.macfanatic.flipswitch.plist
+        rm -r /Library/LaunchDaemons/ca.sonofiron.oneConnection.plist
         echo "Previous LaunchDaemon has been removed"
 fi
 
-# If flipswitch is installed, remove flipswitch
-fsIsInstalled=`ls /Library/ironsystems/bin/ | grep flipswitch`
-
-if [ "$fsIsInstalled" == "flipswitch*" ]; then
-        echo "Previous version of flipswitch was installed"
-        rm -r /Library/ironsystems/bin/flipswitch*
-        echo "Previous version of flipswitch has been removed"
+# If oneConnection is installed, remove oneConnection
+if [ -f "/Library/oneConnection/bin/oneConnection" ]; then
+        echo "Previous version of oneConnection was installed"
+        rm -r /Library/oneConnection/bin/oneConnection*
+        echo "Previous version of oneConnection has been removed"
 fi
