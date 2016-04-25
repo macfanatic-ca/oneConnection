@@ -184,7 +184,7 @@
 										<key>GID</key>
 										<integer>0</integer>
 										<key>PATH</key>
-										<string>ca.sonofiron.oneConnection.plist</string>
+										<string>../main/ca.sonofiron.oneConnection.plist</string>
 										<key>PATH_TYPE</key>
 										<integer>1</integer>
 										<key>PERMISSIONS</key>
@@ -220,7 +220,7 @@
 												<key>GID</key>
 												<integer>0</integer>
 												<key>PATH</key>
-												<string>oneConnection</string>
+												<string>../main/oneConnection</string>
 												<key>PATH_TYPE</key>
 												<integer>1</integer>
 												<key>PERMISSIONS</key>
@@ -489,14 +489,14 @@
 			<key>POSTINSTALL_PATH</key>
 			<dict>
 				<key>PATH</key>
-				<string>postinstall</string>
+				<string>../resources/postinstall</string>
 				<key>PATH_TYPE</key>
 				<integer>1</integer>
 			</dict>
 			<key>PREINSTALL_PATH</key>
 			<dict>
 				<key>PATH</key>
-				<string>preinstall</string>
+				<string>../resources/preinstall</string>
 				<key>PATH_TYPE</key>
 				<integer>1</integer>
 			</dict>
@@ -527,7 +527,7 @@
 			<key>BUILD_PATH</key>
 			<dict>
 				<key>PATH</key>
-				<string>build</string>
+				<string>./</string>
 				<key>PATH_TYPE</key>
 				<integer>1</integer>
 			</dict>
