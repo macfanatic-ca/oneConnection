@@ -1,6 +1,0 @@
-### Version: 1.0
-Stops network bridging turning the relevant network interface off and on
-### Version: 1.1
-Added logging for debugging and tracking
-### Version: 1.2
-Added logic to account for Dell Ethernet hardware
